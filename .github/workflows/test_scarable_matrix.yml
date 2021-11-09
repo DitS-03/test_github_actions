@@ -20,14 +20,15 @@ jobs:
       - name: Run a one-line script
         id: list_up_keys
         run: |
-          echo "::set-output name=key_list::(hoge fuga fizz buzz)"
+          list=$(echo '["hoge","fuga"]' | jq -c)
+          echo "::set-output name=key_list::${list}"
 
   run_parallel:
     runs-on: ubuntu-latest
     needs: set_variable
     strategy:
       matrix:
-        key: ${{ needs.set_variable.outputs.key_list }}
+        key: ${{ fromJson(needs.set_variable.outputs.key_list) }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a single command using the runners shell
