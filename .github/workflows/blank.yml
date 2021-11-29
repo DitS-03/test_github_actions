@@ -32,7 +32,7 @@ jobs:
       - name: show params
         run: |
           echo "### Input Params ###"
-          echo @"${{ toJSON(github.event.inputs) }}"@
+          echo "${{ toJSON(github.event.inputs) }}"
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
